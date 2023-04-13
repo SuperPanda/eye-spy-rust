@@ -1,7 +1,6 @@
 language: rust
 os:
   - linux
-  - windows
 dist: focal
 rust:
   - stable
@@ -19,8 +18,6 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -y; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y google-chrome-stable; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then set /p GITHUB_TOKEN=<%GITHUB_TOKEN%>; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install googlechrome; fi
 script:
   - cargo build --verbose
   - cargo test --verbose
