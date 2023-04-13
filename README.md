@@ -1,46 +1,60 @@
-# Eye Spy - An Rust OpenCV Camera Game of Eye Spy
+# Eye Spy
 
-This project aims to develop a game of eye spy using OpenCV and Machine Learning with the goal of learning how write program in Rust and overcome technical limitations through iterative improvements and software engineering principles.
+![Eye Spy Logo](assets/eye-spy-logo.png)
 
-The initial commut release uses Rust and OpenCV to detect if a camera is available and display it to a video feed.
+Eye Spy is a game that utilizes computer vision and machine learning techniques for object detection. The project focuses on achieving maximum performance in object detection and video processing, ensuring that each step can be calculated within a single frame. This allows for a better understanding of the available "performance budget" that can be spent on adding more features to the game while maintaining smooth and responsive gameplay.
 
-## Prerequisites
+## Table of Contents
 
-- Rust and Cargo (https://www.rust-lang.org/tools/install)
-- OpenCV development libraries (https://opencv.org/releases/)
-- CMake and pkg-config (https://cmake.org/download/ and https://www.freedesktop.org/wiki/Software/pkg-config/)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Design Document](#design-document)
+- [Contribution Guidelines](#contribution-guidelines)
+- [Versioning Strategy](#versioning-strategy)
+- [Testing](#testing)
+- [License](#license)
 
-## Setup
+## Installation
 
-1. Clone this repository:
+1. Install Rust and required dependencies:
+
+   - [Install Rust](https://www.rust-lang.org/tools/install)
+   - Install OpenCV and other dependencies
+
+2. Clone the repository:
 
 ```
 git clone https://github.com/SuperPanda/eye-spy-rust.git
 cd eye-spy-rust
 ```
 
-2. Build the project:
+3. Build and run the project:
 
 ```
-cargo build
+cargo build --release
+cargo run --release
 ```
 
-This command will download and compile the necessary dependencies, as well as build the project itself.
+## Usage
 
-## Running the Project
+TBA
 
-1. Run the project:
+## Design Document
 
-```
-cargo run
-```
+Please refer to the [design document](DESIGN.md) for detailed information on the project structure, components, and overall design.
 
-This will display the video feed from the default camera. Press any key to exit the program.
+## Contribution Guidelines
 
-## Troubleshooting
+TBA
 
-If you encounter any issues with the camera or dependencies, please refer to the respective documentation:
+## Versioning Strategy
 
-- Rust: https://www.rust-lang.org/learn/get-started
-- OpenCV: https://docs.opencv.org/master/
-- opencv-rust: https://docs.rs/opencv/
+We will use [Semantic Versioning](https://semver.org/) for this project. Each commit should be meaningful and informative, with clear and concise commit messages.
+
+## Testing
+
+TBA
+
+## License
+
+TBA
