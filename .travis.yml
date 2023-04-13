@@ -1,0 +1,41 @@
+language: rust
+rust:
+  - nightly
+
+branches:
+  only:
+    - main
+
+os:
+  - linux
+  - windows
+
+addons:
+  apt:
+    packages:
+      - libopencv-dev
+
+cache: cargo
+
+before_install:
+  - if [ $TRAVIS_OS_NAME = 'windows' ]; then choco install opencv; export PATH=$PATH:'/c/tools/opencv/build/x64/vc15/bin'; fi
+
+script:
+  - cargo build --verbose --release
+
+before_deploy:
+  - git config --local user.name "Andrew Briscoe"
+  - git config --local user.email "admin@pandasportal.net"
+  - git tag "$(date +'%Y%m%d%H%M%S')-nightly"
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - target/release/eye-spy
+    - target/release/eye-spy.exe
+  skip_cleanup: true
+  on:
+    repo: SuperPanda/eye-spy-rust
+    branch: main
+
