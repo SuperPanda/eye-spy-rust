@@ -1,41 +1,35 @@
 language: rust
-rust:
-  - nightly
-
-branches:
-  only:
-    - main
-
 os:
   - linux
-  - windows
-
-addons:
-  apt:
-    packages:
-      - libopencv-dev
-
+rust:
+  - stable
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
+  fast_finish: true
 cache: cargo
-
 before_install:
-  - if [ $TRAVIS_OS_NAME = 'windows' ]; then choco install opencv; export PATH=$PATH:'/c/tools/opencv/build/x64/vc15/bin'; fi
-
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -y; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libgtk-3-dev libdbus-glib-1-2 wget; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/google-chrome.gpg; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -y; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y google-chrome-stable; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install googlechrome; fi
 script:
-  - cargo build --verbose --release
-
+  - cargo build --verbose
+  - cargo test --verbose
 before_deploy:
-  - git config --local user.name "Andrew Briscoe"
-  - git config --local user.email "admin@pandasportal.net"
-  - git tag "$(date +'%Y%m%d%H%M%S')-nightly"
-
+  - cargo build --release
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
-  file:
-    - target/release/eye-spy
-    - target/release/eye-spy.exe
+  token: $GITHUB_TOKEN
+  file: target/release/eye-spy
   skip_cleanup: true
+  draft: true
   on:
-    repo: SuperPanda/eye-spy-rust
+    tags: true
+    condition: $TRAVIS_RUST_VERSION = stable && $TRAVIS_OS_NAME = linux
     branch: main
 
