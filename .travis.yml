@@ -10,6 +10,7 @@ matrix:
   fast_finish: true
 cache: cargo
 before_install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo rm /etc/apt/sources.list.d/pgdg.list; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -y; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libgtk-3-dev libdbus-glib-1-2 wget; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/google-chrome.gpg; fi
